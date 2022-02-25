@@ -1,5 +1,5 @@
 # inputMask
 Один из универсальных инструментов от команды Weekend Design, позволяющий эффективно решать задачу с масками input-ов при Front-end разработке! 
 
-В инструменте присутсвует только самое нужное, подробнее почитать  [здесь](https://github.com/mrlimax1/input-mask/tree/main/docs)
+В инструменте присутсвует только самое нужное, подробнее почитать  [здесь](https://github.com/mrlimax1/input-mask/tree/main/docs).
 
