@@ -1,17 +1,21 @@
-<div class="test"></div>
+<input class="test">
 
-<style>
+<style> 
     body {
-        width: 100vw;
-        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
     .test {
-        position: relative;
-        margin: auto;
-        top: 40%;
-
+        font-size: 22px;
+    
         width: 400px;
         height: 70px;
-        border: 3px solid #ccc;
+        border: 1px solid #ccc;
     }
 </style>
+
+<script src="example.js"></script>
+<script>
+    new inputMask('.test')
+</script>
