@@ -58,13 +58,6 @@ class telephoneMask {
         }
         input.value = formattedInputValue;
     }
-    static onPhoneKeyDown(e) {
-        // Clear input after remove last symbol
-        var inputValue = e.target.value.replace(/\D/g, '');
-        if (e.keyCode == 8 && inputValue.length == 1) {
-            e.target.value = "";
-        }
-    }
 
 }
 class inputMask {
