@@ -1,32 +1,37 @@
 class mailMask {
+    field = 0
     static onMailPaste(e) {
-
-    }
-    static onMailSpace(e) {
-
-    }
-    static onMailKeydown(e) {
-        var inputValue = e.target.value
-        if (e.keyCode == 8 && inputValue.length == 1) {
-
-        }
-    }
-}
-class telephoneMask {
-    static onPhonePaste(e) {
-        var input = e.target,
-            inputNumbersValue = getInputNumbersValue(input);
         var pasted = e.clipboardData || window.clipboardData;
         if (pasted) {
             var pastedText = pasted.getData('Text');
-            if (/\D/g.test(pastedText)) {
-                // Attempt to paste non-numeric symbol — remove all non-numeric symbols,
-                // formatting will be in onPhoneInput handler
-                input.value = inputNumbersValue;
+            if (/.+@.+\..+/i.test(pastedText)) {
                 return;
+            } else {
+                e.preventDefault();
             }
         }
     }
+    static onMailClick(e) {
+        console.log(e.target.value)
+        if (!e.target.value) {
+            e.target.value = "_@_._"
+        } 
+        if (e.target.value == "_@_._") {
+        }
+    }
+    static fieldCheck() {
+        
+    }
+    
+    static onMailKeydown(e) {
+        var input = e.target
+        if (e.keyCode == 8 && input.value.length == 1) {
+        
+        }
+    }
+    
+}
+class telephoneMask {
 
     static getInputNumbersValue(input) {
         return input.value.replace(/\D/g, '');
@@ -90,8 +95,11 @@ class inputMask {
         this.el.type = this.type
         switch (this.type) {
             case 'email':
-                this.el.addEventListener('keydown', this.onMailKeydown);
+                this.el.addEventListener('keydown', mailMask.onMailKeydown);
+                this.el.addEventListener('paste', mailMask.onMailPaste);
+                this.el.addEventListener('click', mailMask.onMailClick);
                 return this.mail;
+                
             case 'tel':
                 this.el.maxLength = 18
                 this.el.addEventListener('keydown', this.onPhoneKeyDown);
@@ -102,6 +110,9 @@ class inputMask {
         }
     }
 
+    mail(e) {
+        e.target.value = e.target.value.replace(" ", '')
+    }
 
     name(e) {
         if (e.target.value[0] == ' ') {
