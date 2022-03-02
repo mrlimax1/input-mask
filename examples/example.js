@@ -1,36 +1,4 @@
-class mailMask {
-    field = 0
-    static onMailPaste(e) {
-        var pasted = e.clipboardData || window.clipboardData;
-        if (pasted) {
-            var pastedText = pasted.getData('Text');
-            if (/.+@.+\..+/i.test(pastedText)) {
-                return;
-            } else {
-                e.preventDefault();
-            }
-        }
-    }
-    static onMailClick(e) {
-        console.log(e.target.value)
-        if (!e.target.value) {
-            e.target.value = "_@_._"
-        } 
-        if (e.target.value == "_@_._") {
-        }
-    }
-    static fieldCheck() {
-        
-    }
-    
-    static onMailKeydown(e) {
-        var input = e.target
-        if (e.keyCode == 8 && input.value.length == 1) {
-        
-        }
-    }
-    
-}
+
 class telephoneMask {
 
     static getInputNumbersValue(input) {
@@ -95,10 +63,7 @@ class inputMask {
         this.el.type = this.type
         switch (this.type) {
             case 'email':
-                this.el.addEventListener('keydown', mailMask.onMailKeydown);
-                this.el.addEventListener('paste', mailMask.onMailPaste);
-                this.el.addEventListener('click', mailMask.onMailClick);
-                return this.mail;
+                this.el.addEventListener('paste', this.onMailPaste);
                 
             case 'tel':
                 this.el.maxLength = 18
@@ -110,9 +75,6 @@ class inputMask {
         }
     }
 
-    mail(e) {
-        e.target.value = e.target.value.replace(" ", '')
-    }
 
     name(e) {
         if (e.target.value[0] == ' ') {
@@ -138,6 +100,18 @@ class inputMask {
         e.target.selectionStart = start
         e.target.selectionEnd = start
     }
+    onMailPaste(e) {
+        var pasted = e.clipboardData || window.clipboardData;
+        if (pasted) {
+            var pastedText = pasted.getData('Text');
+            if (/.+@.+\..+/i.test(pastedText)) {
+                return;
+            } else {
+                e.preventDefault();
+            }
+        }
+    }
+
     onPhonePaste(e) {
         var input = e.target,
             inputNumbersValue = telephoneMask.getInputNumbersValue(input);
@@ -160,3 +134,4 @@ class inputMask {
         }
     }
 }
+

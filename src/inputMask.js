@@ -1,32 +1,5 @@
-class mailMask {
-    static onMailPaste(e) {
 
-    }
-    static onMailSpace(e) {
-
-    }
-    static onMailKeydown(e) {
-        var inputValue = e.target.value
-        if (e.keyCode == 8 && inputValue.length == 1) {
-
-        }
-    }
-}
 class telephoneMask {
-    static onPhonePaste(e) {
-        var input = e.target,
-            inputNumbersValue = getInputNumbersValue(input);
-        var pasted = e.clipboardData || window.clipboardData;
-        if (pasted) {
-            var pastedText = pasted.getData('Text');
-            if (/\D/g.test(pastedText)) {
-                // Attempt to paste non-numeric symbol — remove all non-numeric symbols,
-                // formatting will be in onPhoneInput handler
-                input.value = inputNumbersValue;
-                return;
-            }
-        }
-    }
 
     static getInputNumbersValue(input) {
         return input.value.replace(/\D/g, '');
@@ -90,8 +63,8 @@ class inputMask {
         this.el.type = this.type
         switch (this.type) {
             case 'email':
-                this.el.addEventListener('keydown', this.onMailKeydown);
-                return this.mail;
+                this.el.addEventListener('paste', this.onMailPaste);
+                
             case 'tel':
                 this.el.maxLength = 18
                 this.el.addEventListener('keydown', this.onPhoneKeyDown);
@@ -127,6 +100,18 @@ class inputMask {
         e.target.selectionStart = start
         e.target.selectionEnd = start
     }
+    onMailPaste(e) {
+        var pasted = e.clipboardData || window.clipboardData;
+        if (pasted) {
+            var pastedText = pasted.getData('Text');
+            if (/.+@.+\..+/i.test(pastedText)) {
+                return;
+            } else {
+                e.preventDefault();
+            }
+        }
+    }
+
     onPhonePaste(e) {
         var input = e.target,
             inputNumbersValue = telephoneMask.getInputNumbersValue(input);
@@ -148,4 +133,8 @@ class inputMask {
             e.target.value = "";
         }
     }
+}
+
+export {
+    inputMask
 }
