@@ -64,7 +64,7 @@ class inputMask {
         switch (this.type) {
             case 'email':
                 this.el.addEventListener('paste', this.onMailPaste);
-                return this.mail
+                return this.mail;
                 
             case 'tel':
                 this.el.maxLength = 18
@@ -75,7 +75,10 @@ class inputMask {
                 return this.name;
         }
     }
-
+    
+    mail(e) {
+        return;
+    }
 
     name(e) {
         if (e.target.value[0] == ' ') {
