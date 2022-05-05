@@ -1,4 +1,3 @@
-
 class telephoneMask {
 
     static getInputNumbersValue(input) {
@@ -52,7 +51,7 @@ class inputMask {
         el, type, placeholder
     ) { 
         this.type = type
-        this.el = document.querySelector(el)
+        this.el = el
 
         let listenFunc = this.listenerGet()
         this.el.addEventListener('input', listenFunc)
@@ -64,6 +63,7 @@ class inputMask {
         switch (this.type) {
             case 'email':
                 this.el.addEventListener('paste', this.onMailPaste);
+                return this.mail;
                 
             case 'tel':
                 this.el.maxLength = 18
@@ -74,7 +74,10 @@ class inputMask {
                 return this.name;
         }
     }
-
+    
+    mail(e) {
+        return;
+    }
 
     name(e) {
         if (e.target.value[0] == ' ') {
@@ -133,8 +136,4 @@ class inputMask {
             e.target.value = "";
         }
     }
-}
-
-export {
-    inputMask
 }
